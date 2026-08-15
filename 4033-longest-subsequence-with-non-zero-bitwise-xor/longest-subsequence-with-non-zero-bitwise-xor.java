@@ -14,7 +14,7 @@ class Solution {
 
         if(totalXOR!=0){
             return n;
-        }else if(hasNonZero){
+        }else if(hasNonZero==true){
             return n-1;
         }else{
             return 0;
