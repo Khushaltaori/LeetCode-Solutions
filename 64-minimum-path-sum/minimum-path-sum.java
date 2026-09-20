@@ -1,23 +1,29 @@
 class Solution {
-
-    public int func(int i,int j,int[][] grid , int[][] dp){
-        if(i==0 && j ==0 ) return grid[0][0];
+   int[][] grid;
+   
+    public int func(int i,int j,int[][] dp){
+        if(i == 0 && j == 0) return grid[0][0];
 
         if(i<0 || j<0) return Integer.MAX_VALUE;
 
         if(dp[i][j]!=-1) return dp[i][j];
-        int left = func(i-1,j,grid,dp);
-        int up = func(i,j-1,grid,dp);
 
-        return dp[i][j]= grid[i][j] + Math.min(up,left);
+        int up = func(i-1,j,dp);
+        int left = func(i,j-1,dp);
+
+        return  dp[i][j] = grid[i][j] +  Math.min(up,left);
     }
     public int minPathSum(int[][] grid) {
+        this.grid = grid;
+        
+
         int m = grid.length;
         int n = grid[0].length;
         int[][] dp = new int[m][n];
+
         for(int[] row : dp){
             Arrays.fill(row,-1);
         }
-        return func(m-1,n-1,grid,dp);
+        return func(m-1,n-1,dp);
     }
 }
