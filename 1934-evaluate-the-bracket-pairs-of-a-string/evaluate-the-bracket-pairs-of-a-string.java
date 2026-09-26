@@ -9,7 +9,7 @@ class Solution {
         StringBuilder ans = new StringBuilder();
         for(int i=0;i<s.length();i++){
             if(s.charAt(i)=='('){
-                int j = i+1;
+                int j = i +1;
 
                 while(s.charAt(j)!=')'){
                     j++;
@@ -18,12 +18,13 @@ class Solution {
                 String key = s.substring(i+1,j);
 
                 if(map.containsKey(key)){
-                    ans.append( map.get(key));
+                    ans.append(map.get(key));
                 }else{
                     ans.append("?");
                 }
 
                 i = j;
+                
             }else{
                 ans.append(s.charAt(i));
             }
