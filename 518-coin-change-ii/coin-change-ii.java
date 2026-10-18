@@ -1,28 +1,27 @@
 class Solution {
-
-    public int func(int ind , int amount,int[] coins,int[][] dp){
-        if(ind==0){
-            if(amount % coins[ind] == 0){
-                return 1;
-            }else{
-                return 0;
-            }
-        }
-
-        if(dp[ind][amount]!=-1) return dp[ind][amount];
-        int nontake = func(ind-1,amount,coins,dp);
-        int take = 0;
-        if(coins[ind]<=amount){
-            take = func(ind,amount-coins[ind],coins,dp);
-        }
-        return dp[ind][amount] = take+nontake;
-    }
     public int change(int amount, int[] coins) {
         int n = coins.length;
         int[][] dp = new int[n][amount+1];
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
+
+        for(int target = 0;target <= amount;target++){
+            if(target % coins[0] == 0){
+                dp[0][target] = 1;
+            }else{
+                dp[0][target] = 0;
+            }
         }
-        return func(n-1,amount,coins,dp);
+
+        for(int ind = 1;ind<=n-1;ind++){
+            for(int target = 0;target<=amount;target++){
+                int nontake = dp[ind-1][target];
+                int take = 0;
+                if(coins[ind]<=target){
+                    take = dp[ind][target-coins[ind]];
+                }
+
+                dp[ind][target] = take + nontake;
+            }
+        }
+        return dp[n-1][amount];
     }
 }
